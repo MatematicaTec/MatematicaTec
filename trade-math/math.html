@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=2.0">
+  <title>Arena I.A. — Batalha dos Números | UFPR</title>
+  <meta name="description" content="Preveja o mercado. Bata o ranking. Jogue Trader Arena — Matemática e Tecnologias Digitais UFPR.">
+
+  <link rel="stylesheet" href="vendor/fonts/fonts.css">
+
+  <script src="vendor/anime.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     TELA 1 — BOAS-VINDAS
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section id="screen-welcome" class="screen active">
+
+  <div class="logo-container">
+    <div class="logo-eyebrow">📈 UFPR · Matemática &amp; Tecnologias Digitais</div>
+    <div class="logo-title">Arena<br>I.A.</div>
+    <div class="logo-sub">BATALHA DOS NÚMEROS</div>
+  </div>
+
+  <div class="welcome-form">
+    <label for="input-name">Seu apelido no ranking</label>
+    <div class="input-wrap">
+      <input
+        id="input-name"
+        class="input-name"
+        type="text"
+        placeholder="Ex: TraderLendário"
+        maxlength="50"
+        autocomplete="off"
+        spellcheck="false"
+      >
+    </div>
+    <div id="name-error" class="error-msg"></div>
+    <button class="btn btn-primary" onclick="onStart()">
+      ⚡ ENTRAR NA ARENA
+    </button>
+  </div>
+
+  <!-- Como jogar -->
+  <div class="how-to-play">
+    <div class="how-to-title">COMO JOGAR</div>
+    <div class="how-to-steps">
+      <div class="how-step">
+        <span class="step-num">1</span>
+        <span>Você vai ver um gráfico históricos de um conjunto de dados</span>
+      </div>
+      <div class="how-step">
+        <span class="step-num">2</span>
+        <span>Ajuste as barras para encaixar sua linha de tendência nos dados</span>
+      </div>
+      <div class="how-step">
+        <span class="step-num">3</span>
+        <span>Os números revelam o futuro — quanto mais certeiro, <strong>mais pontos! 💰</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mini leaderboard -->
+  <div class="mini-board">
+    <div class="mini-board-title">
+      <span class="lb-pulse"></span>
+      O ajuste de dados é o primeiro passo no mundo da inteligência artificial
+    </div>
+    <div id="mini-board">
+      <div class="mini-board-empty">Carregando ranking…</div>
+    </div>
+    <div class="mini-board-challenge">Você consegue chegar ao topo? 🔥</div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     TELA 2 — GAMEPLAY
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section id="screen-game" class="screen">
+  <div class="game-layout">
+
+    <!-- Cabeçalho -->
+    <div class="game-header">
+      <div>
+        <div class="section-title">📈 MERCADO AO VIVO</div>
+        <div class="section-sub">Encaixe sua linha de tendência nos dados históricos</div>
+      </div>
+      <div class="game-player-tag">
+        <span class="player-label">JOGADOR</span>
+        <span id="player-display">—</span>
+      </div>
+    </div>
+
+    <!-- Gráfico -->
+    <div class="chart-wrap">
+      <canvas id="mainChart"></canvas>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#10b981"></div>
+          <span>Dados reais</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f59e0b"></div>
+          <span>Sua previsão</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel de controle -->
+    <div class="control-panel">
+
+      <!-- Equação -->
+      <div class="panel-section">
+        <div class="panel-label">Sua linha de tendência</div>
+        <div id="equation-display" class="equation-box">Prev = 0 + 1.0 × t</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Sliders -->
+      <div class="panel-section">
+        <div class="panel-label">Ajuste os parâmetros</div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-name">📍 BASE (β₀)</span>
+            <span id="val-b0" class="slider-value">0</span>
+          </div>
+          <input id="slider-b0" type="range" min="-200" max="200" step="1" value="0">
+          <div class="slider-hint">Sobe ou desce toda a linha</div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-name">📐 INCLINAÇÃO (β₁)</span>
+            <span id="val-b1" class="slider-value">1.0</span>
+          </div>
+          <input id="slider-b1" type="range" min="-20" max="20" step="0.1" value="1">
+          <div class="slider-hint">Alta (+) ou queda (−) da tendência</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Erro ao vivo -->
+      <div class="panel-section">
+        <div class="panel-label">Erro de previsão</div>
+        <div class="eqm-display">
+          <div>
+            <span class="eqm-label">Erro atual</span>
+            <div class="eqm-hint">Quanto menor, melhor!</div>
+          </div>
+          <span id="eqm-live" class="eqm-value">—</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Confirmar -->
+      <div class="panel-section">
+        <button id="btn-confirm" class="btn btn-primary btn-confirm" onclick="onConfirm()" disabled>
+          ⚡ APOSTAR PREVISÃO
+        </button>
+        <div id="confirm-hint" class="confirm-hint"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     TELA 3 — RESULTADO
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section id="screen-result" class="screen">
+
+  <div style="text-align:center; margin-bottom:8px;">
+    <div class="section-title result-title-main">💥 Os números revelaram!</div>
+    <div class="section-sub">Veja como foi sua previsão vs. a realidade</div>
+  </div>
+
+  <div class="result-layout" style="width:100%; max-width:860px;">
+
+    <div>
+      <div class="chart-wrap" style="min-height:320px;">
+        <canvas id="resultChart"></canvas>
+      </div>
+      <div class="result-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#10b981"></div>
+          <span>Preços reais</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f59e0b; opacity:0.7"></div>
+          <span>Sua previsão</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#a78bfa"></div>
+          <span>Futuro revelado</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f43f5e; border-radius:2px"></div>
+          <span>Diferença (erro)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-cards">
+
+      <div class="result-card" id="rc-eqm">
+        <div class="rc-label">Erro de previsão</div>
+        <div id="rc-eqm-value" class="rc-value rc-eqm">—</div>
+        <div class="rc-sub">Calculado sobre os pontos futuros</div>
+      </div>
+
+      <div class="result-card rc-destaque" id="rc-lucro">
+        <div class="rc-label">💰 VOCÊ GANHOU</div>
+        <div id="rc-lucro-value" class="rc-value rc-lucro">R$ —</div>
+        <div class="rc-sub">Quanto menor o erro, mais pontos!</div>
+      </div>
+
+      <div class="result-card" id="rc-rank">
+        <div class="rc-label">Sua posição no ranking</div>
+        <div id="rc-rank-value" class="rc-value rc-rank">—</div>
+        <div class="rc-sub" id="rc-rank-sub">Buscando no ranking…</div>
+      </div>
+
+     <button class="btn btn-primary" onclick="showLeaderboardScreen()">
+        🏆 VER RANKING COMPLETO
+      </button> 
+      
+      <button class="btn btn-secondary" onclick="restartGame()">
+        🔄 JOGAR DE NOVO
+      </button>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     TELA 4 — LEADERBOARD
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section id="screen-leaderboard" class="screen">
+
+  <div class="leaderboard-wrap">
+
+    <div class="lb-header">
+      <div class="lb-title">RANKING DA ARENA</div>
+      <div class="lb-sub">
+        <span class="lb-pulse"></span>
+        Ao vivo — atualizado a cada 5 segundos
+      </div>
+    </div>
+
+    <!-- Pódio top 3 -->
+    <div id="lb-podium" class="lb-podium"></div>
+
+    <!-- 4º em diante -->
+    <div id="lb-rest" class="lb-rest">
+      <table class="lb-table">
+        <thead>
+          <tr>
+            <th class="lb-rank-cell">#</th>
+            <th>Trader</th>
+            <th>Erro</th>
+            <th>Lucro</th>
+          </tr>
+        </thead>
+        <tbody id="lb-tbody">
+          <tr><td colspan="4" class="lb-empty">Carregando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex; gap:12px; margin-top:24px;">
+      <button class="btn btn-secondary" onclick="restartGame()" style="flex:1">
+        🔄 JOGAR DE NOVO
+      </button>
+      <button class="btn btn-primary" onclick="showScreen('screen-welcome')" style="flex:1">
+        🏠 INÍCIO
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+<script src="chart.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>
