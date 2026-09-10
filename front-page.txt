@@ -1,0 +1,137 @@
+<?php get_header(); ?>
+
+<header>
+    <div class="container">
+        <div class="logo-area">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/logoUFPR.png" class="ufpr-logo">
+            <h1>Licenciatura em Matemática<br>e Tecnologias Digitais</h1>
+        </div>
+        <p>Campus Jandaia do Sul</p>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <h2>A fusão que transforma a educação.</h2>
+            <p>Domine a matemática pura e as ferramentas digitais...</p>
+
+            <a href="mailto:coordenacao.jandaia@ufpr.br" class="btn btn-primary">
+                <i class="far fa-envelope"></i> Fale com a Coordenação
+            </a>
+
+            <a href="#ingresso" class="btn btn-secondary">
+                <i class="fas fa-graduation-cap"></i> Como Ingressar
+            </a>
+        </div>
+
+        <div class="hero-image">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/hero_fusion.png">
+        </div>
+    </div>
+</section>
+
+<section id="sobre" class="content-section">
+    <div class="container text-center">
+        <h2>Sobre o Curso</h2>
+        <p>O curso de Licenciatura em Matemática e Tecnologias Digitais da UFPR...</p>
+
+        <a href="<?php echo home_url('/detalhes'); ?>" class="btn btn-primary">
+            <i class="fas fa-search-plus"></i> Conheça o curso por dentro
+        </a>
+    </div>
+</section>
+
+<section id="pilares" class="content-section">
+    <div class="container text-center">
+        <h2>Pilares do Curso</h2>
+
+        <div class="grid-cards">
+
+            <div class="card">
+                <i class="fas fa-square-root-variable fa-4x"></i>
+                <h3>Matemática Sólida</h3>
+                <p>Domínio dos fundamentos da matemática clássica e moderna.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-laptop-code fa-4x"></i>
+                <h3>Tecnologia Digital</h3>
+                <p>Formação prática em programação, algoritmos e robótica.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-chalkboard-teacher fa-4x"></i>
+                <h3>Metodologia Ativa</h3>
+                <p>Abordagens pedagógicas inovadoras e participativas.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="metodologia" class="content-section bg-dark">
+    <div class="container text-center">
+        <h2>A Jornada do Conhecimento</h2>
+
+        <div class="flowchart">
+
+            <div class="flow-item active">
+                <i class="fas fa-play-circle fa-2x"></i>
+                <p>Início do Curso</p>
+            </div>
+
+            <i class="fas fa-chevron-right arrow fa-2x"></i>
+
+            <div class="flow-item">
+                <i class="fas fa-microchip fa-2x"></i>
+                <p>Fundamentos de Matemática, Cálculo e Programação</p>
+            </div>
+
+            <i class="fas fa-chevron-right arrow fa-2x"></i>
+
+            <div class="flow-item">
+                <i class="fas fa-tools fa-2x"></i>
+                <p>Projetos Integradores</p>
+            </div>
+
+            <i class="fas fa-chevron-right arrow fa-2x"></i>
+
+            <div class="flow-item">
+                <i class="fas fa-mobile-alt fa-2x"></i>
+                <p>Aplicações Digitais e Robótica</p>
+            </div>
+
+            <i class="fas fa-chevron-right arrow fa-2x"></i>
+
+            <div class="flow-item">
+                <i class="fas fa-user-graduate fa-2x"></i>
+                <p>Licenciado</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="ingresso" class="content-section">
+    <div class="container text-center">
+        <h2>Pronto para Começar?</h2>
+        <p>O ingresso ocorre via Vestibular UFPR ou SISU.</p>
+
+        <div class="btn-group">
+            <a href="https://servicos.nc.ufpr.br/PortalNC/ProcessosRealizados" class="btn btn-primary" target="_blank">
+                <i class="fas fa-file-signature"></i> Vestibular UFPR
+            </a>
+
+            <a href="https://sisu.mec.gov.br/" class="btn btn-primary" target="_blank">
+                <i class="fas fa-address-card"></i> Portal SISU
+            </a>
+
+            <a href="tel:+554334321234" class="btn btn-secondary">
+                <i class="fas fa-phone-alt"></i> (43) 3432-1234
+            </a>
+        </div>
+    </div>
+</section>
+
+<?php get_footer(); ?>

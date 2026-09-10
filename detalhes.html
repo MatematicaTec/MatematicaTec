@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Curso - Licenciatura em Matemática e Tecnologias Digitais - UFPR</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS GERAL (Mantido para consistência) */
+        body { font-family: 'Roboto', sans-serif; line-height: 1.6; margin: 0; color: #333; overflow-x: hidden; background-color: #f9f9f9;}
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3, h4 { font-weight: 700; }
+        h2 { text-transform: uppercase; letter-spacing: 2px; text-align: center; color: #2c3e50; margin-bottom: 40px; margin-top: 60px;}
+        section { padding: 40px 0; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        p { color: #666; font-weight: 300; font-size: 1.1em;}
+        ul { color: #666; font-weight: 300;}
+
+        /* BOTÕES (Mantido o estilo dourado) */
+        .btn { display: inline-flex; align-items: center; padding: 12px 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 5px; cursor: pointer; border: none; font-size: 0.9em;}
+        .btn i { margin-right: 10px; }
+        .btn-primary { background-color: #d4af37; color: #333; }
+        .btn-primary:hover { background-color: #c09a30; transform: scale(1.03); }
+        .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 30px; }
+
+        /* CABEÇALHO COM VÍDEO (A PRINCIPAL NOVIDADE) */
+        .header-video-hero {
+            position: relative;
+            width: 100%;
+            height: 60vh; /* Ocupa 60% da altura da tela */
+            overflow: hidden;
+        }
+
+        /* O vídeo real */
+        .header-video-hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1; /* Fica no fundo */
+            transform: translate(-50%, -50%); /* Centraliza perfeitamente */
+            object-fit: cover; /* Faz o vídeo cobrir todo o espaço sem distorcer */
+        }
+
+        /* Overlay escuro para legibilidade */
+        .header-video-hero .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 46, 80, 0.7); /* Azul escuro semi-transparente */
+            z-index: 2; /* Fica acima do vídeo, mas abaixo do texto */
+        }
+
+        /* Conteúdo de texto sobre o vídeo */
+        .header-video-hero .content {
+            position: relative;
+            z-index: 3; /* Fica acima de tudo */
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .header-video-hero h1 {
+            font-size: 3em;
+            margin: 10px 0;
+            line-height: 1.1;
+        }
+
+        .ufpr-logo-small { height: 60px; width: auto; margin-bottom: 20px;}
+        .p-campus { margin: 0; font-size: 1.1em; color: #f9d71c; }
+
+        /* NAVEGAÇÃO SIMPLES NO TOPO */
+        .simple-nav {
+            background-color: #002e50;
+            padding: 15px 0;
+            color: white;
+            text-align: center;
+        }
+        .simple-nav a:hover { color: #f9d71c; }
+
+
+        /* SEÇÃO DE EIXOS CURRICULARES (CARDS TECH) */
+        .eixos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .eixo-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border-top: 4px solid transparent;
+            position: relative;
+        }
+
+        .eixo-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+
+        .eixo-card i { 
+            font-size: 3em; 
+            color: #004a80;
+            background-color: rgba(0, 74, 128, 0.05);
+            padding: 20px;
+            border-radius: 50%;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .eixo-card h3 { 
+            font-size: 1.25em; 
+            margin-bottom: 15px; 
+            color: #004a80;
+        }
+        
+        .eixo-card p { text-align: left; font-size: 0.95em; color: #777;}
+        .eixo-card hr { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+
+        /* Definição de cores tech para os eixos */
+        .eixo-matematica { border-top-color: #f9d71c; } /* Dourado */
+        .eixo-tecnologia { border-top-color: #00ffff; }  /* Ciano */
+        .eixo-ensino { border-top-color: #ff00ff; }     /* Magenta */
+
+        /* RODAPÉ MANTIDO PELA CONSISTÊNCIA */
+        footer { background: #1a1a1a; color: #ccc; padding: 60px 0; font-size: 0.9em; text-align: center; border-top: 3px solid #d4af37; margin-top: 100px;}
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .header-video-hero { height: 40vh; }
+            .header-video-hero h1 { font-size: 2.2em; }
+            .eixos-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="simple-nav">
+        <div class="container">
+            <a href="index.html"><i class="fas fa-home"></i> Início</a> / <span>Detalhes do Curso</span>
+        </div>
+    </nav>
+
+    <div class="header-video-hero">
+        
+        <video autoplay loop muted playsinline id="bg-video">
+            <source src="Mat_Tec_1.mp4" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
+        </video>
+
+        <div class="overlay"></div>
+
+        <div class="content">
+            <img src="logoUFPR.png" alt="Logo UFPR Jandaia do Sul" class="ufpr-logo-small">
+            <p class="p-campus">Campus Jandaia do Sul</p>
+            <h1>Licenciatura em Matemática<br>e Tecnologias Digitais</h1>
+        </div>
+    </div>
+
+    <section id="detalhes-sobre">
+        <div class="container">
+            <h2>Diferenciais do Curso</h2>
+            <p>O curso de Licenciatura em Matemática e Tecnologias Digitais da UFPR oferece uma formação única e moderna, que responde às demandas educacionais e tecnológicas do século XXI. Nosso currículo é estruturado em eixos integradores, onde o rigor da matemática clássica se funde com a aplicação prática das ferramentas digitais e as metodologias ativas.</p>
+        </div>
+    </section>
+
+    <section id="eixos" class="container">
+        <h2>Conheça a Grade do Curso (Eixos)</h2>
+        <div class="eixos-grid">
+            
+            <div class="eixo-card eixo-matematica">
+                <i class="fas fa-divide fa-fw"></i>
+                <h3>Eixo de Matemática Pura</h3>
+                <p>O alicerce conceitual sólido. Inclui: Cálculo Diferencial e Integral, Álgebra Linear, Geometria Analítica, Teoria dos Números, Lógica Matemática, Probabilidade e Estatística.</p>
+                <hr>
+                <p><strong><i class="fas fa-sigma"></i> Foco:</strong> Desenvolvimento do raciocínio lógico-formal.</p>
+            </div>
+
+            <div class="eixo-card eixo-tecnologia">
+                <i class="fas fa-microchip fa-fw"></i>
+                <h3>Eixo de Tecnologias Digitais</h3>
+                <p>A aplicação prática e a modelagem. Inclui: Algoritmos e Programação, Computação Científica, Robótica Educacional, Modelagem Digital, Inteligência Artificial aplicada à Educação.</p>
+                <hr>
+                <p><strong><i class="fas fa-code"></i> Foco:</strong> Criação de soluções digitais e automação.</p>
+            </div>
+
+            <div class="eixo-card eixo-ensino">
+                <i class="fas fa-chalkboard-user fa-fw"></i>
+                <h3>Eixo de Didática e Ensino</h3>
+                <p>A ponte entre saber e ensinar. Inclui: Psicologia da Educação, Políticas Educacionais, Didática Ativa, Estágios Supervisionados, Desenvolvimento de Objetos de Aprendizagem Digitais.</p>
+                <hr>
+                <p><strong><i class="fas fa-id-badge"></i> Foco:</strong> Formação de educadores inovadores.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="perfil" class="container">
+        <h2>Perfil do Egresso</h2>
+        <p>O licenciado por este curso será um profissional capacitado a:</p>
+        <ul style="list-style-type: square; padding-left: 20px;">
+            <li><i class="fas fa-check-circle" style="color: #004a80;"></i> Atuar na Educação Básica, Técnica e Tecnológica com domínio conceitual da Matemática.</li>
+            <li><i class="fas fa-check-circle" style="color: #004a80;"></i> Desenvolver e aplicar novos métodos de ensino que integrem de forma inovadora as tecnologias digitais.</li>
+            <li><i class="fas fa-check-circle" style="color: #004a80;"></i> Criar recursos educacionais digitais, softwares, robótica e jogos para o ensino.</li>
+            <li><i class="fas fa-check-circle" style="color: #004a80;"></i> Gerir projetos de inovação tecnológica no ambiente escolar.</li>
+        </ul>
+    </section>
+
+    <section id="detalhes-voltar">
+        <div class="container text-center">
+            <div class="btn-group">
+                <a href="index.html" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Voltar para a Início</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 UFPR - Campus Jandaia do Sul. Rua Dr. João de Oliveira, 234.</p>
+            <p>Contato: coordenacao.jandaia@ufpr.br</p>
+        </div>
+    </footer>
+
+</body>
+</html>
